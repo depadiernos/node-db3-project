@@ -19,9 +19,16 @@ For this lab you will
 Use a graphical tool like `SQLite Studio` to open `./data/northwind.db3` and execute the following queries:
 
 - Display the ProductName and CategoryName for all products in the database. Returns 77 records.
+> ` select p.ProductName, c.CategoryName from "Product" as p join "Category" as c on c.id = p.CategoryId;`
+
 - Display the order Id and shipper CompanyName for all orders placed before August 9 2012. Returns 429 records.
+> `select o.id, s.CompanyName from "Order" o join "Shipper" s on s.id = o.ShipVia where o.OrderDate < "2012-08-09";`
+
 - Display the name and quantity of the products ordered in order with Id 10251. Sort by ProductName. Returns 3 records.
+> `select p.ProductName, d.Quantity from "OrderDetail" d join "Product" p on d.ProductId = p.id where d.OrderId = "10251";`
+
 - Display the OrderID, curstomer's Company Name and the employee's Last Name for every order. All columns should be labeled clearly. Returns 16,789 records.
+> `select o.id as OrderId, c.CompanyName as CustomerName, e.LastName as EmployeeName from "Order" o join "Customer" c on o.CustomerId = c.id join "Employee" e on o.EmployeeId = e.id`
 
 ### Database Methods
 
