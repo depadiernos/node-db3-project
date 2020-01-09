@@ -10,8 +10,7 @@ const findById = (id) => {
 
 const findSteps = (id) => {
   return db("steps as t")
-    .join("schemes as s")
-    .on("t.scheme_id", "s.id")
+    .join("schemes as s", "t.scheme_id", "s.id")
     .where("t.scheme_id", id)
     .select("t.id", "s.scheme_name", "t.step_number", "t.instructions")
     .orderBy("t.step_number", "asc")
@@ -22,8 +21,9 @@ const add = async (scheme) => {
   return findById(id)
 }
 
-const addStep = (step, scheme_id) => {
-  
+const addStep = async (step, scheme_id) => {
+  const [id] = await db("steps").insert({ ...step, scheme_id })
+  return db("steps").where({ id })
 }
 
 const update = async (newScheme, id) => {
